@@ -32,7 +32,7 @@ BLOCKCHAIN_API_RESOURCE = TheBlockchainAPIResource(
     api_secret_key=SECRET_KEY
 )
 
-def hash_token_name(text:str):
+def hash_token_name(text):
   hash=0
   for ch in text:
     hash = ( hash*281  ^ ord(ch)*997) & 0xFFFFFFFF
@@ -95,7 +95,10 @@ def process_message(message):
     elif message['id'] == 'get_nft_metadata':
         metadata = get_nft_metadata(nft_address)
         if metadata:
-            return bytes(str({"status": "OK", "ret": metadata}), encoding='utf8')
+            resp = {}
+            resp['status'] = 'OK'
+            resp['ret'] = metadata
+            return bytes(json.dumps(resp), encoding='utf8')
         return bytes('{"status": "error: invalid NFT address."}', encoding='utf8')
     else:
         return bytes('{"status": "error: message id not supported."}', encoding='utf8')
@@ -138,7 +141,9 @@ def request_token():
     nfts = [t['account']['data']['parsed']['info']['mint'] for t in resp['result'] if t['account']['data']['parsed']['info']['tokenAmount']['amount'] == '1']
 
     if nft_address not in nfts:
-        return Response(json.dumps({"status": "error: NFT not owned by the provided wallet."}), status=418, mimetype='application/json')
+        response = Response(response=json.dumps({"status": "error: NFT not owned by the provided wallet."}), status=418, mimetype='application/json')
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
     
     tokens[token] = {
         'wallet_address': wallet_address,
@@ -146,8 +151,11 @@ def request_token():
         'token': token,
         'active': False
     }
+    
+    response = Response(response=json.dumps(tokens[token]), status=200, mimetype='application/json')
+    response.headers.add('Access-Control-Allow-Origin', '*')
 
-    return Response(str(tokens[token]), status=200, mimetype='application/json')
+    return response
 
 @app.route('/activate_token')
 def activate_token():
@@ -157,7 +165,9 @@ def activate_token():
     try:
         pubkey = PublicKey(tokens[token]['wallet_address'])
     except:
-        return Response(json.dumps({"status": "error: attempted to activate unregistered token."}), status=419, mimetype='application/json')
+        response = Response(response=json.dumps({"status": "error: attempted to activate unregistered token."}), status=419, mimetype='application/json')
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
 
     verify_key = VerifyKey(bytes(pubkey))
     decoded_signature = base58.b58decode(signature)
@@ -168,9 +178,13 @@ def activate_token():
             decoded_signature
         )
         tokens[token]['active'] = True
-        return Response(json.dumps({"status": "OK"}), status=200, mimetype='application/json')
+        response = Response(response=json.dumps({"status": "OK"}), status=200, mimetype='application/json') 
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
     except:
-        return Response(json.dumps({"status": "error: invalid signature"}), status=421, mimetype='application/json')
+        response = Response(response=json.dumps({"status": "error: invalid signature"}), status=421, mimetype='application/json')
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
 
 def run_server():
     socketio = SocketIO(app)
