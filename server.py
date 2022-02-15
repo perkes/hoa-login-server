@@ -39,37 +39,36 @@ def hash_token_name(text):
   return hash
 
 def get_nft_metadata(nft_address):
-    try:
-        nft_metadata = BLOCKCHAIN_API_RESOURCE.get_nft_metadata(
-            mint_address=nft_address,
-            network=SolanaNetwork.MAINNET_BETA
-        )
+    nft_metadata = BLOCKCHAIN_API_RESOURCE.get_nft_metadata(
+        mint_address=nft_address,
+        network=SolanaNetwork.MAINNET_BETA
+    )
 
-        token_name = nft_metadata['data']['name']
-        req = requests.get(url = nft_metadata['data']['uri'])
-        req = req.json()
-        resp = {}
+    token_name = nft_metadata['data']['name']
+    req = requests.get(url = nft_metadata['data']['uri'])
+    req = req.json()
+    resp = {}
 
-        resp['is_hoa'] = False
-        if nft_metadata['update_authority'] == UPDATE_AUTHORITY:
-            resp['is_hoa'] = True
+    resp['is_hoa'] = False
+    if nft_metadata['update_authority'] == UPDATE_AUTHORITY:
+        resp['is_hoa'] = True
 
-        sex, race = None, None
-        for attribute in req['attributes']:
-            if attribute['trait_type'] in ('Race', 'Sex', 'Class', 'Level', 'Head'):
-                if attribute['trait_type'] == 'Level':
-                    resp['Level'] = attribute['value']
-                else:
-                    if attribute['trait_type'] == 'Sex':
-                        sex = attribute['value'].lower()
-                    if attribute['trait_type'] == 'Race':
-                        race = attribute['value'].lower()
-                    resp[attribute['trait_type'].lower()] = ATTRIB[attribute['trait_type']][attribute['value']]
-        name_list = config['names'][race][sex]
-        resp['name'] = name_list[abs(hash_token_name(token_name))%len(name_list)]
-        return resp
-    except:
-        return None
+    sex, race = None, None
+    for attribute in req['attributes']:
+        if attribute['trait_type'] in ('Race', 'Sex', 'Class', 'Level', 'Head', 'Body', 'Weapon', 'Helmet', 'Shield'):
+            if attribute['trait_type'] == 'Level':
+                resp['Level'] = attribute['value']
+            else:
+                if attribute['trait_type'] == 'Sex':
+                    sex = attribute['value'].lower()
+                if attribute['trait_type'] == 'Race':
+                    race = attribute['value'].lower()
+                value = ATTRIB[attribute['trait_type']][attribute['value']]
+                resp[attribute['trait_type'].lower()] = value
+    # Assigning the PC a name from the name list. The same NFT will always be assigned the same name.
+    name_list = config['names'][race][sex]
+    resp['name'] = name_list[abs(hash_token_name(token_name))%len(name_list)]
+    return resp
 
 def is_token_active(token, nft_address):
     try:
@@ -188,7 +187,7 @@ def activate_token():
 
 def run_server():
     socketio = SocketIO(app)
-    socketio.run(app, port=5000)
+    socketio.run(app, host='0.0.0.0', port=5000)
 
 if __name__ == '__main__':
     context = zmq.Context()
