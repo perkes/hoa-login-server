@@ -1,4 +1,3 @@
-from theblockchainapi import TheBlockchainAPIResource, SolanaNetwork
 from solana.publickey import PublicKey
 from flask_socketio import SocketIO
 from nacl.signing import VerifyKey
@@ -21,16 +20,9 @@ config = json.load(open('./config.json', 'r'))
 
 TOKEN_LENGTH = config["token_length"]
 ZMQ_PORT = config["zmq_port"]
-KEY_ID = config["key_id"]
-SECRET_KEY= config["secret_key"]
 UPDATE_AUTHORITY = config["update_authority"]
 RPC_URL = config["rpc_url"]
 ATTRIB = config["attrib"]
-
-BLOCKCHAIN_API_RESOURCE = TheBlockchainAPIResource(
-    api_key_id=KEY_ID,
-    api_secret_key=SECRET_KEY
-)
 
 def hash_token_name(text):
   hash=0
@@ -39,19 +31,19 @@ def hash_token_name(text):
   return hash
 
 def get_nft_metadata(nft_address):
-    nft_metadata = BLOCKCHAIN_API_RESOURCE.get_nft_metadata(
-        mint_address=nft_address,
-        network=SolanaNetwork.MAINNET_BETA
-    )
-
-    token_name = nft_metadata['data']['name']
-    req = requests.get(url = nft_metadata['data']['uri'])
-    req = req.json()
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+    req = requests.get(url='https://api.solscan.io/account?address='+nft_address, headers=headers)
+    req = json.loads(req.text)
     resp = {}
 
     resp['is_hoa'] = False
-    if nft_metadata['update_authority'] == UPDATE_AUTHORITY:
+    if req['data']['metadata']['updateAuthority'] == UPDATE_AUTHORITY:
         resp['is_hoa'] = True
+
+    token_name = req['data']['tokenInfo']['name']
+    nft_number = token_name.split('#')[1]
+
+    req = json.load(open('./metadata/' + str(nft_number) + '.json', 'r'))
 
     sex, race = None, None
     for attribute in req['attributes']:
@@ -79,6 +71,8 @@ def is_token_active(token, nft_address):
         nft_matches = (nft_address == tokens[token]['nft_address'])
     except:
         nft_matches=False
+    # Tokens may only be used once.
+    del tokens[token]
     return True if (is_active and nft_matches) else False
 
 def process_message(message):
