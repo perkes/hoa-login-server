@@ -9,26 +9,19 @@ import requests
 import random
 import string
 import base58
-import nacl
 import json
-import time
 import zmq
 
 tokens = {}
 app = Flask(__name__)
 config = json.load(open('./config.json', 'r'))
+names = json.load(open('./names.json', 'r'))
 
 TOKEN_LENGTH = config["token_length"]
 ZMQ_PORT = config["zmq_port"]
 UPDATE_AUTHORITY = config["update_authority"]
 RPC_URL = config["rpc_url"]
 ATTRIB = config["attrib"]
-
-def hash_token_name(text):
-  hash=0
-  for ch in text:
-    hash = ( hash*281  ^ ord(ch)*997) & 0xFFFFFFFF
-  return hash
 
 def get_nft_metadata(nft_address):
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
@@ -45,21 +38,16 @@ def get_nft_metadata(nft_address):
 
     req = json.load(open('./metadata/' + str(nft_number) + '.json', 'r'))
 
-    sex, race = None, None
     for attribute in req['attributes']:
         if attribute['trait_type'] in ('Race', 'Sex', 'Class', 'Level', 'Head', 'Body', 'Weapon', 'Helmet', 'Shield'):
             if attribute['trait_type'] == 'Level':
                 resp['Level'] = attribute['value']
             else:
-                if attribute['trait_type'] == 'Sex':
-                    sex = attribute['value'].lower()
-                if attribute['trait_type'] == 'Race':
-                    race = attribute['value'].lower()
                 value = ATTRIB[attribute['trait_type']][attribute['value']]
                 resp[attribute['trait_type'].lower()] = value
-    # Assigning the PC a name from the name list. The same NFT will always be assigned the same name.
-    name_list = config['names'][race][sex]
-    resp['name'] = name_list[abs(hash_token_name(token_name))%len(name_list)]
+
+    resp['name'] = names[token_name]
+
     return resp
 
 def is_token_active(token, nft_address):

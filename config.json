@@ -5,28 +5,6 @@
     "secret_key": "Q4sOpMjklYCNAs0",
     "update_authority": "C1PTKRiUZncRUMyUtek2f8AZR6kjnfBgXTRTXUJafWRA",
     "rpc_url": "https://ssc-dao.genesysgo.net/",
-    "names": {
-        "human": {
-            "male": ["Aelfkettil", "Aenesric", "Balrach", "Bardahard", "Bregudeor", "Breguson", "Cenarm", "Censige", "Chalrochak", "Chaltorek", "Cynebeorht", "Delmkor", "Deorgar", "Deorweald", "Ervan", "Garsige", "Garweard", "Godbeorht", "Godweard", "Herebrand", "Hrofweard", "Instan", "Leodhere", "Sigeleof", "Sigeweard", "Thurheard", "Winegar", "Winewulf", "Wulfheard", "Zlen"],
-            "female": ["Aelfsig", "Aethelmaer", "Aethelraed", "Bealdthorne", "Beorhtric", "Cwenburg", "Cynein", "Eirudo", "Elida", "Gruistae", "Heathusige", "Helmsige", "Hildsige", "Islynn", "Isothra", "Ivithra", "Kerenza", "Leofmaer", "Leofor", "Lowenna", "Mayetta", "Mundkettil", "Nerama", "Osgrim", "Salenor", "Salywyn", "Voroth", "Winewaru", "Zubuwyn", "Zubylaith"]
-        },
-        "drow": {
-            "male": ["Arred", "Chorlim", "Divsoluld", "Doryolild", "Dromryild", "Dulsinnid", "Durtorvid", "Eilorgald", "Ernourn", "Ernoxird", "Fipelul", "Immyrurn", "Imyelul", "Inssabvir", "Istnelvim", "Jernelvid", "Jervrileld", "Kaornid", "Lilald", "Lilrelurn", "Lulcaid", "Mazreluld", "Mirorgvim", "Nortulird", "Noruld", "Nothvekid", "Nothyolralim", "Olvilnil", "Syryeld", "Zvriler"],
-            "female": ["Balsekth", "Burvilistra", "Colthalistra", "Dulmyrdeil", "Dulmyrvra", "Dulrhaira", "Dulthalis", "Dulysvia", "Durnildril", "Enothvra", "Erilra", "Ermyran", "Gonlya", "Ilorgvril", "Jegteltra", "Jendorniss", "Jysonlavil", "Kilna", "Lilnevia", "Lilvekira", "Maboria", "Mazmyrth", "Molpelith", "Molsabra", "Molthaltra", "Nothpeliln", "Ulsunbra", "Voira", "Voothiln", "Vosullevlin"]
-        },
-        "elf": {
-            "male": ["Aimon", "Alabyran", "Almon", "Aywin", "Bellas", "Connak", "Dakath", "Ettrian", "Hagwin", "Iliphar", "Ilrune", "Jorildyn", "Keletheryl", "Kendel", "Khatar", "Khidell", "Lhoris", "Malon", "Melandrach", "Myriil", "Pleufan", "Samblar", "Shaundyl", "Taegen", "Theodred", "Triandal", "Vaalyun", "Vander", "Vulmon", "Xhalth", "Aegsilerrod", "Aethlorallin", "Aethraelamnar", "Aethseldelnar", "Belmitholdil", "Caelsaeremrior", "Caelsaerthaldan", "Caerlithirrod", "Caerrindesros", "Calimilorn", "Calrinerdir", "Cellaredorn", "Celmithanros", "Earthaeramion", "Elbnithinrond", "Elrilirion", "Elsarerdil", "Eolmelandel", "Erimirfal", "Eristindel", "Faersilinorn", "Findninevion", "Findnithamdel", "Findthaleslad", "Galinolrior", "Gelseldenion", "Ithmelalthir", "Ithserevlad", "Laegranaslin", "Lendtherirdan"],
-            "female": ["Alais", "Alea", "Bellaluna", "Braerindra", "Chandrelle", "Cyithrel", "Daratrine", "Darunia", "Delshandra", "Eirika", "Elanil", "Eloimaya", "Gweyr", "Ilmadia", "Keishara", "Kethryllia", "Liluth", "Lura", "Lyndis", "Lyre", "Morgwais", "Nephenee", "Phelorna", "Pyria", "Rathiain", "Shadowmoon", "Shandalar", "Sheedra", "Tsarra", "Urmicca", "Aegthelebmir", "Aerthaelerwen", "Aerthaelthalwen", "Aethraelerrian", "Anrimevwen", "Arsareliel", "Caelrelolrian", "Calireviel", "Carmarthalrien", "Celrinaliel", "Cirninaniel", "Clarinolriel", "Earmaegemroël", "Elbrinelsil", "Elthlitheswë", "Erimaswen", "Erlrilirel", "Ermaranwë", "Estloreleth", "Farmithalriel", "Farnithenmir", "Feanthalthonrian", "Findranthonmir", "Findsaresmir", "Galrinthonian", "Gannitherrian", "Gilralthonwë", "Ithmindadloth", "Laeglitharrial", "Laegsaeriledel"]
-        },
-        "dwarf": {
-            "male": ["Bifur", "Biril", "Bonthur", "Danbur", "Darethog", "Darrimm", "Dein", "Duerran", "Duerthur", "Duerulf", "Duervim", "Faril", "Fibroir", "Galvri", "Gimin", "Gwarri", "Hargurn", "Kiur", "Lothur", "Ori", "Renden", "Tadur", "Taur", "Telrimm", "Thoden", "Thoni", "Torun", "Ummun", "Vonin", "Vonrimm", "Bordnir", "Bornbor", "Bornlin", "Brimin", "Brimnir", "Brokkri", "Bromor", "Burlli", "Dolgvor", "Dorin", "Dormvor", "Dralin", "Fromli", "Gimrur", "Gondir", "Gordrok", "Gordvi", "Gradror", "Guldvir", "Gundnir", "Hornror", "Norbor", "Nordrok", "Norrin", "Skandnir", "Skondvor", "Strombor", "Sundror", "Thornror", "Throlin"],
-            "female": ["Anvara", "Arra", "Bylthiel", "Danden", "Deba", "Dona", "Fretala", "Futha", "Gadi", "Garyn", "Gimca", "Hema", "Hirinka", "Hralna", "Kathsyl", "Kilta", "Kituna", "Lasryn", "Ligret", "Maba", "Miali", "Olina", "Relov", "Reniess", "Rilinda", "Ritu", "Sita", "Thogra", "Thondy", "Yenev", "Ballind", "Broddis", "Brunis", "Daga", "Darith", "Dorhild", "Dormnis", "Dralrun", "Drimdis", "Fromrith", "Gonddis", "Gondvis", "Gordbis", "Gordhild", "Gradlis", "Grimda", "Grimis", "Gurdis", "Horddis", "Hornga", "Hrais", "Norddis", "Skanddis", "Sundna", "Thranis", "Throda", "Throlda", "Thrordis", "Thrulis", "Thundis"]
-        },
-        "gnome": {
-            "male": ["Babimac", "Balibik", "Bawack", "Bimleeble", "Bimliarn", "Binkflonk", "Binwick", "Bolink", "Bonkbus", "Bonleble", "Burtink", "Dinkbitank", "Dobeeble", "Dodibrick", "Donkleedink", "Fenklink", "Fenlflonk", "Filbik", "Filgo", "Finflonk", "Finkvash", "Gelklink", "Gelsizz", "Hinbmink", "Hinklosizz", "Laflink", "Nitkeeklonk", "Tenlink", "Tockawick", "Tovash"],
-            "female": ["Bilbeefonk", "Billeklinkle", "Bimrgo", "Bipflonk", "Bipsizz", "Cargus", "Dinkulo", "Ditink", "Dosizz", "Filble", "Filgus", "Gynndomink", "Juladink", "Katdomink", "Ketris", "Klofizzy", "Liskink", "Lokeefizzy", "Lymtink", "Lyssfizzy", "Lysskyago", "Merdiwack", "Mitthinkle", "Nittlebik", "Talkink", "Tallinkey", "Tannus", "Thinbythin", "Tilkitinkle", "Tindinkey"]
-        }
-    },
     "attrib": {
         "Class": {
             "Wizard": 1,
